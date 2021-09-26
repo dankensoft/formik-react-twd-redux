@@ -1,10 +1,10 @@
 import React from 'react'
-import { Form } from './Form'
+import { BasicForm } from './BasicForm'
 
 export const App = () => {
     return (
         <div className="container p-4">
-            <Form/>
+            <BasicForm/>
         </div>
     )
 }

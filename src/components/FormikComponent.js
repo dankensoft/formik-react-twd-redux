@@ -1,7 +1,31 @@
-import React from 'react'
+import React from 'react';
 import { Formik, Field, Form } from 'formik';
+import { useForm } from '../hooks/useForm';
+import { useDispatch } from 'react-redux';
+import { save } from '../actions/form';
 
 export const FormikComponent = () => {
+
+    const dispatch = useDispatch();
+
+    const [formValues, handleInputChange] = useForm({
+        firstName: '',
+        lastName: '',
+        email: '',
+        country: '',
+        streetAddress: '',
+        city: '',
+        state: '',
+        postalCode: ''
+    });
+
+    const {firstName, lastName, email, country, streetAddress, city, state, postalCode} = formValues;
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        dispatch(save(firstName, lastName, email, country, streetAddress, city, state, postalCode));
+    }
+
     return (
         <>
             <Formik
@@ -15,12 +39,8 @@ export const FormikComponent = () => {
                     state: '',
                     postalCode: ''
                 }}
-                onSubmit={async (values) => {
-                    await new Promise((r) => setTimeout(r, 500));
-                    alert(JSON.stringify(values, null, 2));
-                }}
                 >
-                <Form>
+                <Form onSubmit={handleSubmit}>
                     <div className="shadow overflow-hidden sm:rounded-md">
                         <div className="px-4 py-5 bg-white sm:p-6">
                         <div className="grid grid-cols-6 gap-6">
@@ -33,6 +53,8 @@ export const FormikComponent = () => {
                                 name="firstName"
                                 id="firstName"
                                 autoComplete="given-name"
+                                value={firstName}
+                                onChange={handleInputChange}
                                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                             />
                             </div>
@@ -46,6 +68,8 @@ export const FormikComponent = () => {
                                 name="lastName"
                                 id="lastName"
                                 autoComplete="family-name"
+                                value={lastName}
+                                onChange={handleInputChange}
                                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                             />
                             </div>
@@ -59,6 +83,8 @@ export const FormikComponent = () => {
                                 name="email"
                                 id="email"
                                 autoComplete="email"
+                                value={email}
+                                onChange={handleInputChange}
                                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                             />
                             </div>
@@ -71,6 +97,8 @@ export const FormikComponent = () => {
                                 id="country"
                                 name="country"
                                 autoComplete="country"
+                                value={country}
+                                onChange={handleInputChange}
                                 className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             >
                                 <option>United States</option>
@@ -94,6 +122,8 @@ export const FormikComponent = () => {
                                 name="streetAddress"
                                 id="streetAddress"
                                 autoComplete="streetAddress"
+                                value={streetAddress}
+                                onChange={handleInputChange}
                                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                             />
                             </div>
@@ -106,6 +136,8 @@ export const FormikComponent = () => {
                                 type="text"
                                 name="city"
                                 id="city"
+                                value={city}
+                                onChange={handleInputChange}
                                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                             />
                             </div>
@@ -118,6 +150,8 @@ export const FormikComponent = () => {
                                 type="text"
                                 name="state"
                                 id="state"
+                                value={state}
+                                onChange={handleInputChange}
                                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                             />
                             </div>
@@ -131,6 +165,8 @@ export const FormikComponent = () => {
                                 name="postalCode"
                                 id="postalCode"
                                 autoComplete="postalCode"
+                                value={postalCode}
+                                onChange={handleInputChange}
                                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                             />
                             </div>

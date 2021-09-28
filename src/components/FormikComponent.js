@@ -1,8 +1,39 @@
 import React from 'react';
-import { Formik, Field, Form } from 'formik';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
 import { useForm } from '../hooks/useForm';
 import { useDispatch } from 'react-redux';
 import { save } from '../actions/form';
+import * as Yup from 'yup';
+
+// Validation with Yup
+const formSchema = Yup.object().shape({
+    firstName: Yup.string()
+        .required("First Name is required")
+        .max(255,"Maximum 255 characters"),
+    lastName: Yup.string()
+        .required("Last Name is required")
+        .max(255,"Maximum 255 characters"),
+    email: Yup.string()
+        .required("Email is required")
+        .email("Invalid Email")
+        .max(255,"Maximum 255 characters"),
+    country: Yup.string()
+        .required("Country is required")
+        .max(255,"Maximum 255 characters"),
+    streetAddress: Yup.string()
+        .required("Street Address is required")
+        .max(255,"Maximum 255 characters"),
+    city: Yup.string()
+        .required("City is required")
+        .max(255,"Maximum 255 characters"),
+    state: Yup.string()
+        .required("State is required")
+        .max(255,"Maximum 255 characters"),
+    postalCode: Yup.string()
+        .required("Postal Code is required")
+        .max(5,"Maximum 5 characters")
+        .min(4,"Minimum 4 characters")
+});
 
 export const FormikComponent = () => {
 
@@ -39,6 +70,7 @@ export const FormikComponent = () => {
                     state: '',
                     postalCode: ''
                 }}
+                validationSchema={formSchema}
                 >
                 <Form onSubmit={handleSubmit}>
                     <div className="shadow overflow-hidden sm:rounded-md">
@@ -57,6 +89,7 @@ export const FormikComponent = () => {
                                 onChange={handleInputChange}
                                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                             />
+                            <ErrorMessage name="firstName" component="span" className="font-large text-red-500" />
                             </div>
 
                             <div className="col-span-6 sm:col-span-3">
@@ -72,6 +105,7 @@ export const FormikComponent = () => {
                                 onChange={handleInputChange}
                                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                             />
+                            <ErrorMessage name="lastName" component="span" className="font-large text-red-500" />
                             </div>
 
                             <div className="col-span-6 sm:col-span-4">
@@ -87,6 +121,7 @@ export const FormikComponent = () => {
                                 onChange={handleInputChange}
                                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                             />
+                            <ErrorMessage name="email" component="span" className="font-large text-red-500" />
                             </div>
 
                             <div className="col-span-6 sm:col-span-3">
@@ -111,6 +146,7 @@ export const FormikComponent = () => {
                                 <option>Costa Rica</option>
                                 <option>Panama</option>
                             </Field>
+                            <ErrorMessage name="country" component="span" className="font-large text-red-500" />
                             </div>
 
                             <div className="col-span-6">
@@ -126,6 +162,7 @@ export const FormikComponent = () => {
                                 onChange={handleInputChange}
                                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                             />
+                            <ErrorMessage name="streetAddress" component="span" className="font-large text-red-500" />
                             </div>
 
                             <div className="col-span-6 sm:col-span-6 lg:col-span-2">
@@ -140,6 +177,7 @@ export const FormikComponent = () => {
                                 onChange={handleInputChange}
                                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                             />
+                            <ErrorMessage name="city" component="span" className="font-large text-red-500" />
                             </div>
 
                             <div className="col-span-6 sm:col-span-3 lg:col-span-2">
@@ -154,6 +192,7 @@ export const FormikComponent = () => {
                                 onChange={handleInputChange}
                                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                             />
+                            <ErrorMessage name="state" component="span" className="font-large text-red-500" />
                             </div>
 
                             <div className="col-span-6 sm:col-span-3 lg:col-span-2">
@@ -169,6 +208,7 @@ export const FormikComponent = () => {
                                 onChange={handleInputChange}
                                 className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                             />
+                            <ErrorMessage name="postalCode" component="span" className="font-large text-red-500" />
                             </div>
                         </div>
                         </div>
